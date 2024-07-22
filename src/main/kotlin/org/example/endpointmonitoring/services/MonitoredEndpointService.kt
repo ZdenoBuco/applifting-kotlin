@@ -123,10 +123,10 @@ class MonitoredEndpointServiceImpl(
     }
 
     fun getResultOutDTOList(endpointId: UUID, resultLimit: Int?): List<MonitoringResultOutDTO> {
-        val allResults = resultRepository.findAllByMonitoredEndpointIdOrderByCheckedAtDesc(endpointId) ?: emptyList()
+        val allResults = resultRepository.findAllByMonitoredEndpointIdOrderByCheckedAtDesc(endpointId)
 
         return allResults.asSequence()
-            .map { MonitoringResultOutDTO(it.id, it.checkedAt, it.httpCode, it.payload) }
+            .map { it.toDto() }
             .take(if (resultLimit == null) allResults.size else if (resultLimit < 0) 0 else resultLimit)
             .toList()
     }
@@ -161,3 +161,7 @@ class MonitoredEndpointServiceImpl(
         }
     }
 }
+
+fun MonitoringResult.toDto(): MonitoringResultOutDTO = MonitoringResultOutDTO(
+    this.id, this.checkedAt, this.httpCode, this.payload
+)

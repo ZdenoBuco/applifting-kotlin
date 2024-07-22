@@ -18,8 +18,6 @@ import java.util.concurrent.TimeUnit
 
 
 interface MonitoringService {
-    @PostConstruct
-    fun init()
 
     @Transactional
     fun updateMonitoringTask(updatedEndpoint: MonitoredEndpoint)
@@ -38,13 +36,13 @@ class MonitoringServiceImpl(
     private val logger = LoggerFactory.getLogger(MonitoringServiceImpl::class.java)
 
     @PostConstruct
-    override fun init() {
+    fun init() {
         val endpoints = endpointRepository.findAll()
         for (endpoint in endpoints) scheduleMonitoringTask(endpoint)
     }
 
     private fun scheduleMonitoringTask(endpoint: MonitoredEndpoint) {
-        val task = Runnable { checkEndpoint(endpoint) }
+        val task = Runnable { checkEndpoint(endpoint) } // could also be done via coroutines
         val future = executorService.scheduleAtFixedRate(
             { task.run() },
             0,
