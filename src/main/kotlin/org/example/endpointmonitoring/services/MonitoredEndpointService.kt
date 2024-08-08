@@ -128,7 +128,7 @@ class MonitoredEndpointServiceImpl(
         return allResults.asSequence()
             .map { it.toDto() }
             .take(if (resultLimit == null) allResults.size else if (resultLimit < 0) 0 else resultLimit)
-            .toList()
+            .toMutableList()
     }
 
     private fun processMonitoredEndpoint(endpoint: MonitoredEndpoint): MonitoredEndpointOutDTO {
@@ -161,7 +161,3 @@ class MonitoredEndpointServiceImpl(
         }
     }
 }
-
-fun MonitoringResult.toDto(): MonitoringResultOutDTO = MonitoringResultOutDTO(
-    this.id, this.checkedAt, this.httpCode, this.payload
-)

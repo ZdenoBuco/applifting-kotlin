@@ -2,6 +2,7 @@ package org.example.endpointmonitoring.models
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import jakarta.persistence.*
+import jakarta.validation.constraints.Size
 import java.time.LocalDateTime
 import java.util.*
 
@@ -23,6 +24,7 @@ class MonitoredEndpoint() {
 data class MonitoredEndpointInDTO(
     val name: String,
     val url: String,
+    @Size(min = 5, max = 10000) // swagger automaticky podla anotacii updatuje popis daneho parametru v scheme
     val monitoringInterval: Int
 )
 

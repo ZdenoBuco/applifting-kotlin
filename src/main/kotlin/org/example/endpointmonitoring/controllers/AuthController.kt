@@ -19,5 +19,5 @@ class AuthController(private val appUserService: AppUserService) {
         appUserService.createUser(appUserRegistrationDTO)
 
     @ExceptionHandler(Exception::class)
-    fun handleException(e: Exception): ResponseEntity<String> = ResponseEntity(e.message, HttpStatus.BAD_REQUEST)
+    fun handleException(e: Exception): ResponseEntity<String> = ResponseEntity(e.message, HttpStatus.NOT_FOUND)
 }

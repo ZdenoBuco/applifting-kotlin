@@ -18,11 +18,15 @@ class MonitoringResult() {
     @Column(columnDefinition = "TEXT")
     var payload: String = ""
     var monitoredEndpointId: UUID = UUID.randomUUID()
+
+    fun toDto(): MonitoringResultOutDTO = MonitoringResultOutDTO(
+        this.id, this.checkedAt, this.httpCode, this.payload
+    )
 }
 
 data class MonitoringResultOutDTO(
-    private var id: UUID,
-    private val checkedAt: LocalDateTime,
-    private val httpCode: Int,
-    private val payload: String
+    val id: UUID,
+    val checkedAt: LocalDateTime,
+    val httpCode: Int,
+    val payload: String
 )

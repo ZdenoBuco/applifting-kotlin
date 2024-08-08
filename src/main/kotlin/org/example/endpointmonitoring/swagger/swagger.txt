@@ -1,0 +1,3 @@
+Ak zadam http://localhost:8080/v3/api-docs tak dostanem JSON schemu moho Swagger UI.
+
+Ak zadam http://localhost:8080/v3/api-docs.yaml tak sa mi stiahne .yaml danej schemy
